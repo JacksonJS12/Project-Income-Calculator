@@ -57,7 +57,7 @@ namespace Income_Calculator.Migrations
 
                     b.HasIndex("BankId");
 
-                    b.ToTable("Registry");
+                    b.ToTable("Registries");
                 });
 
             modelBuilder.Entity("Income_Calculator.Data.Models.Registry", b =>

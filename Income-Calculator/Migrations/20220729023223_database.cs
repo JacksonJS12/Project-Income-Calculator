@@ -3,17 +3,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Income_Calculator.Migrations
 {
-    public partial class Refactorythedatabase : Migration
+    public partial class database : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "Money",
-                table: "Incomes",
-                newName: "Total");
+            migrationBuilder.CreateTable(
+                name: "Banks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Total = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Banks", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
-                name: "Registry",
+                name: "Registries",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -24,30 +33,28 @@ namespace Income_Calculator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Registry", x => x.Id);
+                    table.PrimaryKey("PK_Registries", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Registry_Incomes_BankId",
+                        name: "FK_Registries_Banks_BankId",
                         column: x => x.BankId,
-                        principalTable: "Incomes",
+                        principalTable: "Banks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Registry_BankId",
-                table: "Registry",
+                name: "IX_Registries_BankId",
+                table: "Registries",
                 column: "BankId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Registry");
+                name: "Registries");
 
-            migrationBuilder.RenameColumn(
-                name: "Total",
-                table: "Incomes",
-                newName: "Money");
+            migrationBuilder.DropTable(
+                name: "Banks");
         }
     }
 }
