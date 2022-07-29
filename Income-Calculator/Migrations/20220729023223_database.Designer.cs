@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Income_Calculator.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220729002956_Refactory the database.")]
-    partial class Refactorythedatabase
+    [Migration("20220729023223_database")]
+    partial class database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,7 +36,7 @@ namespace Income_Calculator.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Incomes");
+                    b.ToTable("Banks");
                 });
 
             modelBuilder.Entity("Income_Calculator.Data.Models.Registry", b =>
@@ -59,7 +59,7 @@ namespace Income_Calculator.Migrations
 
                     b.HasIndex("BankId");
 
-                    b.ToTable("Registry");
+                    b.ToTable("Registries");
                 });
 
             modelBuilder.Entity("Income_Calculator.Data.Models.Registry", b =>
