@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Income_Calculator.Repository;
 
 namespace Income_Calculator
 {
@@ -27,6 +28,7 @@ namespace Income_Calculator
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<IBankRepository, BankRepository>();
             services.AddDbContext<AppDbContext>(
                 options => options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
         }
