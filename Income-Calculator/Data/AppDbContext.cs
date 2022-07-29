@@ -15,6 +15,7 @@ namespace Income_Calculator.Data
 
         }
         public DbSet<Bank> Banks { get; set; }
+        public DbSet<Registry> Registries { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -6,18 +6,18 @@ using System.Linq;
 
 namespace Income_Calculator.Controllers
 {
-    public class HomeController : Controller
+    public class RegistryController : Controller
     {
         private readonly AppDbContext _context;
-        public HomeController(AppDbContext context)
+
+        public RegistryController(AppDbContext context)
         {
-            _context = context;
+            this._context = context;
         }
 
         public IActionResult Index()
         {
-            var banks = _context.Banks.ToList();
-            return View(banks);
+            return View();
         }
         [HttpGet]
         public IActionResult Create()
@@ -25,13 +25,16 @@ namespace Income_Calculator.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Bank student)
+        public ActionResult Create(Registry registry)
         {
+            registry.Bank = _context.Banks
+                .ToList()
+                .FirstOrDefault(x => x.Id == registry.BankId);
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _context.Banks.Add(student);
+                    _context.Registries.Add(registry);
                     _context.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -41,8 +44,7 @@ namespace Income_Calculator.Controllers
                 //Log the error (uncomment dex variable name and add a line here to write a log.
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
-            return View(student);
+            return View(registry);
         }
-
     }
 }
