@@ -23,13 +23,13 @@ namespace Income_Calculator.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Income student)
+        public ActionResult Create(Bank student)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _context.Incomes.Add(student);
+                    _context.Banks.Add(student);
                     _context.SaveChanges();
                     return RedirectToAction("Index");
                 }
